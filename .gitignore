@@ -1,1 +1,6 @@
 *.pdf
+.obsidian/
+# .obsidian/cache
+# .obsidian/plugins/*
+# !.obsidian/plugins/YOUR-PLUGIN-NAME/   # only if you're developing one
+# .obsidian/obsidian_askpass.sh
