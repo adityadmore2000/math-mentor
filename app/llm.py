@@ -38,6 +38,7 @@ def clean_problem(user_input: str) -> ProblemStructure:
         "- Make multiplication explicit: 2x -> 2*x.\n"
         "- Standardize operators consistently: use ** for exponents.\n"
         '- If the input is an equation, set topic to "algebra" and goal to "solve for x".\n'
+        '- If the input is an equation with no variables, set topic to "arithmetic" and goal to "check if true".\n'
         '- If the input is an arithmetic expression, set topic to "arithmetic" and goal to "evaluate".\n'
         "- Do not include markdown, explanations, or extra text."
     )

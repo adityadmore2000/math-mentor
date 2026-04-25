@@ -26,6 +26,13 @@ def fake_clean_problem(user_input: str):
             "expression": "x**2 - 4 = 0",
             "goal": "solve for x",
         }
+    if user_input == "9+5=17":
+        return {
+            "problem": "9+5=17",
+            "topic": "arithmetic",
+            "expression": "9+5=17",
+            "goal": "check if true",
+        }
     return {"problem": user_input, "topic": "unknown", "expression": user_input, "goal": "solve"}
 
 
@@ -81,6 +88,15 @@ class TestPipeline(unittest.TestCase):
         result = run_pipeline("x^2 - 4 = 0")
         assert result["goal"] == "solve for x"
         assert "-2" in result["verified_answer"] or "2" in result["verified_answer"]
+
+    @patch("app.pipeline.clean_problem", side_effect=fake_clean_problem)
+    @patch("app.pipeline.solve_steps", side_effect=fake_solve_steps)
+    @patch("app.pipeline.explain_solution", side_effect=fake_explain_solution)
+    def test_constant_equation_is_checked(self, mock_explain, mock_solve, mock_clean):
+        result = run_pipeline("9+5=17")
+        assert result["goal"] == "check if true"
+        assert result["answer"] == "False"
+        assert result["verified_answer"] == "False"
 
 
 if __name__ == "__main__":
